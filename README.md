@@ -3,18 +3,18 @@
 </div>
 
 <div align="center">
-  <h1>Electron, React and TypeScript Template</h1>
+  <h1>Electron Printer Testing</h1>
 </div>
 
 <br/>
 
 <div align="center">
 
-  Code   | Function
-  --------- | ------
-  `yarn dev` | to install dependencies
-  `yarn start` | to run project on development
-  `yarn package` | to build the project
+  | Code           | Function                      |
+  | -------------- | ----------------------------- |
+  | `yarn dev`     | to install dependencies       |
+  | `yarn start`   | to run project on development |
+  | `yarn package` | to build the project          |
 
 </div>
 

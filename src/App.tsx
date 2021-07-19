@@ -1,9 +1,9 @@
 import { GlobalStyle } from './UI/GlobalStyle';
-import "./UI/index.global.css"
+import "./UI/index.global.css";
 
-import { Home } from './components/Home'
+import { Home } from './components/Home';
 
-export function App() {
+export function App () {
   return (
     <>
       <GlobalStyle />

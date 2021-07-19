@@ -1,8 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 export const api = {
-  ping: (message: string) => {
-    ipcRenderer.send('message', message)
+  requestOpenDialog: (dialogCallback: (data: string) => void) => {
+    ipcRenderer.send('dialog');
+
+    ipcRenderer
+      .on("dialog", (_, filePath: string) => {
+        dialogCallback(filePath);
+      });
   },
 
   on: (channel: string, callback: Function) => {

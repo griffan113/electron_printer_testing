@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -12,4 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     color: #393939;
   }
-`
+
+  button {
+    outline: none;
+  }
+`;
