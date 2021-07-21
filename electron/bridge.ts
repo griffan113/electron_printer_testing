@@ -1,13 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 export const api = {
-  requestOpenDialog: (dialogCallback: (data: string) => void) => {
+  requestOpenDialog: (/* dialogCallback: (data: string) => void */) => {
     ipcRenderer.send('dialog');
 
-    ipcRenderer
-      .on("dialog", (_, filePath: string) => {
-        dialogCallback(filePath);
-      });
+    /*     ipcRenderer
+          .on("dialog", (_, filePath: string) => {
+            dialogCallback(filePath);
+          }); */
   },
 
   on: (channel: string, callback: Function) => {

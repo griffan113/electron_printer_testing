@@ -1,8 +1,7 @@
 import {
   app,
   BrowserWindow,
-  ipcMain,
-  dialog
+  ipcMain
 } from 'electron';
 import * as path from 'path';
 
@@ -25,13 +24,13 @@ function createWindow () {
     height: 700,
     backgroundColor: '#FFF',
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
     }
   });
 
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -40,24 +39,54 @@ function createWindow () {
 
 async function registerListeners () {
   ipcMain.on("dialog", (event, arg) => {
-    if (mainWindow !== null) {
-      dialog.showOpenDialog(mainWindow, {
-        properties: ['openFile'],
-        filters: [
-          { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-          { name: 'Pdf', extensions: ['pdf'] },
-          { name: "Doc", extensions: ['doc', 'docx'] }
-        ]
-      }).then(result => {
-        console.log(result.canceled);
-        const filePath = result.filePaths[0];
+    // if (mainWindow !== null) {
+    //   dialog.showOpenDialog(mainWindow, {
+    //     properties: ['openFile'],
+    //     filters: [
+    //       { name: 'Pdf', extensions: ['pdf'] },
+    //     ]
+    //   }).then(async result => {
+    //     console.log(result.canceled);
+    //     const filePath = result.filePaths[0];
 
-        console.log(filePath);
-        event.reply("dialog", filePath);
-      }).catch(err => {
-        console.log(err);
-      })
-    };
+    //     if (mainWindow !== null) {
+    //       mainWindow?.hide();
+    //       // load PDF.
+    //       mainWindow.loadFile(`${filePath}`).then(() => console.log("Loaded file...")).catch(() => console.log);
+
+    //       // if pdf is loaded start printing.
+    //       mainWindow.webContents.on('did-finish-load', () => {
+    //         // mainWindow.webContents.print({ silent: true });
+    //         if (mainWindow !== null) mainWindow.webContents.print({ silent: false });
+    //         // close window after print order.
+    //         mainWindow = null;
+    //       });
+    //       mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+    //     }
+
+    //     // if (mainWindow !== null) console.log(mainWindow.webContents.getPrinters());
+
+
+    //     console.log(filePath);
+    //     event.reply("dialog", filePath);
+    //   }).catch(err => {
+    //     console.log(err);
+    //   })
+    // };
+
+    // Carregar Html em uma nova página,
+    // Imprimir essa nova página,
+
+    const secondPage = new BrowserWindow({
+      width: 302,
+      height: 600,
+      show: false,
+    });
+
+    secondPage.loadFile("C:/electron_printer_testing/public/secondPage.html");
+    secondPage.on("ready-to-show", () => {
+      secondPage.webContents.print({ copies: 1, silent: true });
+    })
   })
 };
 
