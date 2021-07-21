@@ -2,16 +2,18 @@ import { useCallback } from 'react';
 import { Container } from './styles';
 
 export const Home = () => {
-  // const [filePath, setFilePath] = useState<string>("");
-
   const handleFilePathChange = useCallback(() => {
-    window.Main.requestOpenDialog();
+    window.Main.printSilently();
+  }, [])
+
+  const handleOpenCamera = useCallback(() => {
+    window.Main.openCameraWindow();
   }, [])
 
   return (
     <Container>
       <button onClick={handleFilePathChange}>Print</button>
-      {/* <Text>{filePath}</Text> */}
+      <button onClick={handleOpenCamera}>Open Camera</button>
     </Container>
   )
 };

@@ -1,13 +1,17 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 export const api = {
-  requestOpenDialog: (/* dialogCallback: (data: string) => void */) => {
-    ipcRenderer.send('dialog');
+  printSilently: (/* dialogCallback: (data: string) => void */) => {
+    ipcRenderer.send('print');
 
     /*     ipcRenderer
           .on("dialog", (_, filePath: string) => {
             dialogCallback(filePath);
           }); */
+  },
+
+  openCameraWindow: () => {
+    ipcRenderer.send("openCameraWindow");
   },
 
   on: (channel: string, callback: Function) => {

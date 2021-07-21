@@ -6,6 +6,8 @@ import {
 import * as path from 'path';
 
 let mainWindow: BrowserWindow | null;
+let secondWindow: BrowserWindow | null;
+let cameraWindow: BrowserWindow | null;
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -34,60 +36,40 @@ function createWindow () {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+    secondWindow = null
   });
 };
 
 async function registerListeners () {
-  ipcMain.on("dialog", (event, arg) => {
-    // if (mainWindow !== null) {
-    //   dialog.showOpenDialog(mainWindow, {
-    //     properties: ['openFile'],
-    //     filters: [
-    //       { name: 'Pdf', extensions: ['pdf'] },
-    //     ]
-    //   }).then(async result => {
-    //     console.log(result.canceled);
-    //     const filePath = result.filePaths[0];
 
-    //     if (mainWindow !== null) {
-    //       mainWindow?.hide();
-    //       // load PDF.
-    //       mainWindow.loadFile(`${filePath}`).then(() => console.log("Loaded file...")).catch(() => console.log);
-
-    //       // if pdf is loaded start printing.
-    //       mainWindow.webContents.on('did-finish-load', () => {
-    //         // mainWindow.webContents.print({ silent: true });
-    //         if (mainWindow !== null) mainWindow.webContents.print({ silent: false });
-    //         // close window after print order.
-    //         mainWindow = null;
-    //       });
-    //       mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-    //     }
-
-    //     // if (mainWindow !== null) console.log(mainWindow.webContents.getPrinters());
-
-
-    //     console.log(filePath);
-    //     event.reply("dialog", filePath);
-    //   }).catch(err => {
-    //     console.log(err);
-    //   })
-    // };
-
-    // Carregar Html em uma nova página,
-    // Imprimir essa nova página,
-
-    const secondPage = new BrowserWindow({
+  /**
+   * Print Silently
+   */
+  ipcMain.on("print", (event, arg) => {
+    secondWindow = new BrowserWindow({
       width: 302,
       height: 600,
       show: false,
     });
 
-    secondPage.loadFile("C:/electron_printer_testing/public/secondPage.html");
-    secondPage.on("ready-to-show", () => {
-      secondPage.webContents.print({ copies: 1, silent: true });
+    secondWindow.loadFile("C:/electron_printer_testing/public/secondWindow.html");
+    secondWindow.on("ready-to-show", () => {
+      if (secondWindow !== null) secondWindow.webContents.print({ copies: 1, silent: true });
     })
   })
+
+  /**
+   * Open Camera window
+   */
+  ipcMain.on("openCameraWindow", () => {
+    cameraWindow = new BrowserWindow({
+      fullscreen: true,
+    });
+
+    cameraWindow.loadFile("C:/electron_printer_testing/public/cameraWindow.html");
+
+    cameraWindow.setMenu(null);
+  });
 };
 
 app.on('ready', createWindow)
