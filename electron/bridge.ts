@@ -1,17 +1,19 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron';
 
 export const api = {
   printSilently: (/* dialogCallback: (data: string) => void */) => {
     ipcRenderer.send('print');
 
-    /*     ipcRenderer
-          .on("dialog", (_, filePath: string) => {
-            dialogCallback(filePath);
-          }); */
+    /* ipcRenderer
+      .on("dialog", (_, filePath: string) => {
+        dialogCallback(filePath);
+      }); */
   },
 
-  openCameraWindow: () => {
-    ipcRenderer.send("openCameraWindow");
+  savePicture: (imageSrc: string) => {
+    console.log(imageSrc);
+
+    ipcRenderer.send('savePic', imageSrc);
   },
 
   on: (channel: string, callback: Function) => {

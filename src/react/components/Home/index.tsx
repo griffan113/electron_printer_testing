@@ -1,19 +1,23 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
+import WebCamModal, { WebCamModalHandles } from '../WebCamModal';
 import { Container } from './styles';
 
 export const Home = () => {
+  const modalRef = useRef<WebCamModalHandles>(null);
+
   const handleFilePathChange = useCallback(() => {
     window.Main.printSilently();
-  }, [])
+  }, []);
 
-  const handleOpenCamera = useCallback(() => {
-    window.Main.openCameraWindow();
-  }, [])
+  const handleOpenCameraModal = useCallback(() => {
+    modalRef.current?.handleOpenModal();
+  }, []);
 
   return (
     <Container>
       <button onClick={handleFilePathChange}>Print</button>
-      <button onClick={handleOpenCamera}>Open Camera</button>
+      <button onClick={handleOpenCameraModal}>Open Camera Modal</button>
+      <WebCamModal ref={modalRef} />
     </Container>
   )
 };

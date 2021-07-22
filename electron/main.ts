@@ -4,10 +4,10 @@ import {
   ipcMain
 } from 'electron';
 import * as path from 'path';
+import fs from 'fs';
 
 let mainWindow: BrowserWindow | null;
-let secondWindow: BrowserWindow | null;
-let cameraWindow: BrowserWindow | null;
+let printWindow: BrowserWindow | null;
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -36,7 +36,7 @@ function createWindow () {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
-    secondWindow = null
+    printWindow = null
   });
 };
 
@@ -45,31 +45,40 @@ async function registerListeners () {
   /**
    * Print Silently
    */
+
   ipcMain.on("print", (event, arg) => {
-    secondWindow = new BrowserWindow({
+    printWindow = new BrowserWindow({
       width: 302,
       height: 600,
       show: false,
     });
 
-    secondWindow.loadFile("C:/electron_printer_testing/public/secondWindow.html");
-    secondWindow.on("ready-to-show", () => {
-      if (secondWindow !== null) secondWindow.webContents.print({ copies: 1, silent: true });
+    printWindow.loadFile("C:/electron_printer_testing/public/printWindow.html");
+    printWindow.on("ready-to-show", () => {
+      if (printWindow !== null) printWindow.webContents.print({ copies: 1, silent: true });
+    })
+  });
+
+  ipcMain.on("savePic", (event, imageData: string) => {
+    console.log("a");
+
+    function base64ToArrayBuffer (base64: string) {
+      const binaryString = window.atob(base64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      return bytes.buffer;
+    }
+
+    const image = base64ToArrayBuffer(imageData)
+
+    fs.writeFile("winner.png", new Uint8Array(image), (err) => {
+      if (err) return console.log(err);
+      console.log("Loaded");
     })
   })
-
-  /**
-   * Open Camera window
-   */
-  ipcMain.on("openCameraWindow", () => {
-    cameraWindow = new BrowserWindow({
-      fullscreen: true,
-    });
-
-    cameraWindow.loadFile("C:/electron_printer_testing/public/cameraWindow.html");
-
-    cameraWindow.setMenu(null);
-  });
 };
 
 app.on('ready', createWindow)
