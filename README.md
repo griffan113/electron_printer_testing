@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Electron_Software_Framework_Logo.svg/1024px-Electron_Software_Framework_Logo.svg.png" width="220" alt="Electron" /></a>
+  <a target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Electron_Software_Framework_Logo.svg/1024px-Electron_Software_Framework_Logo.svg.png" width="220" alt="Electron" /></a>
 </div>
 
 <div align="center">
