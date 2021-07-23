@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-  <h1>Electron Printer Testing</h1>
+  <h1>Electron Resources Testing</h1>
 </div>
 
 <br/>
