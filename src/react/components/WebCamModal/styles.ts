@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fadeIn } from "../../UI/GlobalStyle";
 
 export const Container = styled.section`
   position: fixed;
@@ -8,7 +9,7 @@ export const Container = styled.section`
   bottom: 0;
 
   background-color: rgba(0, 0, 0, 0.5);
-  transition: 0.2s;
+  animation: ${fadeIn} 0.1s ease-in-out;
 
   display: flex;
   align-items: center;
@@ -18,7 +19,8 @@ export const Container = styled.section`
 
 export const ModalContent = styled.section`
   padding: 10px;
-  width: 700px;
+  width: 60%;
+  height: 90%;
 
   border-radius: 20px;
 
@@ -54,4 +56,31 @@ export const CloseButton = styled.button`
 export const Picture = styled.img`
   border-radius: 5px;
   margin: 10px;
+
+  height: 90%;
+  max-width: 200px;
+`;
+
+export const Preview = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  animation: ${fadeIn} 0.1s ease-in-out;
+
+  margin: 10px;
+  max-height: 300px;
+  height: 60%;
+  width: 50%;
+  padding: 30px;
+`;
+
+export const PreviewHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 `;

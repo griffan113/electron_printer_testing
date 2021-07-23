@@ -4,4 +4,4 @@ packages
 .webpack
 out
 yarn.lock
-/tmp
+tmp/*

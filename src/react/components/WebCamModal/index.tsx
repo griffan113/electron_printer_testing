@@ -12,10 +12,11 @@ import { Button } from '../Button';
 import {
   Container,
   ModalHeader,
-  CloseButton,
   ModalContent,
   ModalBody,
-  Picture
+  Picture,
+  Preview,
+  PreviewHeader
 } from './styles';
 
 export interface WebCamModalHandles {
@@ -59,17 +60,22 @@ const WebCamModal: ForwardRefRenderFunction<WebCamModalHandles> = (props, ref) =
           </ModalHeader>
           <ModalBody>
             <Webcam
-              style={{ borderRadius: "5px" }}
-              height={"300px"}
+              style={{ borderRadius: "5px", maxHeight: "300px", height: "60%" }}
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
             />
             <Button value="Capture photo" onClick={capture} isPrimary />
             {imgSrc && (
-              <Picture
-                src={imgSrc}
-              />
+              <Preview>
+                <PreviewHeader>
+                  <h3>Preview</h3>
+                  <Button onClick={() => setImgSrc("")} value="X" isPrimary={false} />
+                </PreviewHeader>
+                <Picture
+                  src={imgSrc}
+                />
+              </Preview>
             )}
           </ModalBody>
         </ ModalContent>

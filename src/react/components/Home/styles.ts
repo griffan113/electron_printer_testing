@@ -16,10 +16,6 @@ export const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  button {
-    margin-top: 24px;
-  }
 `;
 
 export const Image = styled.img`

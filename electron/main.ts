@@ -60,14 +60,16 @@ async function registerListeners () {
   });
 
   ipcMain.on("savePic", (event, imageData: string) => {
-    const path = 'tmp/' + Date.now() + '.png';
+    const tmpDir = 'tmp/';
+    const path = tmpDir + Date.now() + '.png';
     const base64 = imageData.replace(/^data:image\/\w+;base64,/, ""); // Remove the front part of the image base64 code data:image/png;base64
     const dataBuffer = Buffer.from(base64, 'base64'); // Convert the base64 code into a buffer object,
+
+    if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir);
+
     fs.writeFile(path, dataBuffer, (err) => { // write file with fs
       if (err) {
         console.log(err);
-      } else {
-        console.log('Write successfully!');
       }
     });
   });
