@@ -7,6 +7,7 @@ import {
   useImperativeHandle
 } from 'react';
 import Webcam from "react-webcam";
+import { Button } from '../Button';
 
 import {
   Container,
@@ -30,7 +31,7 @@ const WebCamModal: ForwardRefRenderFunction<WebCamModalHandles> = (props, ref) =
     return {
       handleOpenModal
     }
-  })
+  });
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot() as string;
@@ -54,16 +55,17 @@ const WebCamModal: ForwardRefRenderFunction<WebCamModalHandles> = (props, ref) =
       <Container>
         <ModalContent>
           <ModalHeader>
-            <CloseButton onClick={handleCloseModal}>X</CloseButton>
+            <Button onClick={handleCloseModal} value="X" isPrimary={false} />
           </ModalHeader>
           <ModalBody>
             <Webcam
+              style={{ borderRadius: "5px" }}
               height={"300px"}
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
             />
-            <button onClick={capture}>Capture photo</button>
+            <Button value="Capture photo" onClick={capture} isPrimary />
             {imgSrc && (
               <Picture
                 src={imgSrc}

@@ -60,25 +60,17 @@ async function registerListeners () {
   });
 
   ipcMain.on("savePic", (event, imageData: string) => {
-    console.log("a");
-
-    function base64ToArrayBuffer (base64: string) {
-      const binaryString = window.atob(base64);
-      const len = binaryString.length;
-      const bytes = new Uint8Array(len);
-      for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
+    const path = 'tmp/' + Date.now() + '.png';
+    const base64 = imageData.replace(/^data:image\/\w+;base64,/, ""); // Remove the front part of the image base64 code data:image/png;base64
+    const dataBuffer = Buffer.from(base64, 'base64'); // Convert the base64 code into a buffer object,
+    fs.writeFile(path, dataBuffer, (err) => { // write file with fs
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Write successfully!');
       }
-      return bytes.buffer;
-    }
-
-    const image = base64ToArrayBuffer(imageData)
-
-    fs.writeFile("winner.png", new Uint8Array(image), (err) => {
-      if (err) return console.log(err);
-      console.log("Loaded");
-    })
-  })
+    });
+  });
 };
 
 app.on('ready', createWindow)

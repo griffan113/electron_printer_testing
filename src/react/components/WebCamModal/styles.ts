@@ -8,6 +8,7 @@ export const Container = styled.section`
   bottom: 0;
 
   background-color: rgba(0, 0, 0, 0.5);
+  transition: 0.2s;
 
   display: flex;
   align-items: center;
@@ -26,7 +27,7 @@ export const ModalContent = styled.section`
 
 export const ModalHeader = styled.header`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
   flex-direction: row;
 `;
@@ -51,5 +52,6 @@ export const CloseButton = styled.button`
 `;
 
 export const Picture = styled.img`
+  border-radius: 5px;
   margin: 10px;
 `;

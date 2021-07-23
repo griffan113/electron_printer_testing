@@ -1,4 +1,5 @@
 import { useCallback, useRef } from 'react';
+import { Button } from '../Button';
 import WebCamModal, { WebCamModalHandles } from '../WebCamModal';
 import { Container } from './styles';
 
@@ -15,8 +16,8 @@ export const Home = () => {
 
   return (
     <Container>
-      <button onClick={handleFilePathChange}>Print</button>
-      <button onClick={handleOpenCameraModal}>Open Camera Modal</button>
+      <Button isPrimary value="Print" onClick={handleFilePathChange} />
+      <Button isPrimary value="Open Camera Modal" onClick={handleOpenCameraModal} />
       <WebCamModal ref={modalRef} />
     </Container>
   )
