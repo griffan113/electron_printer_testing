@@ -1,10 +1,10 @@
 import { useCallback, useRef } from 'react';
 import { Button } from '../Button';
-import WebCamModal, { WebCamModalHandles } from '../WebCamModal';
+import WebcamModal, { WebcamModalHandles } from '../WebCamModal';
 import { Container } from './styles';
 
 export const Home = () => {
-  const modalRef = useRef<WebCamModalHandles>(null);
+  const modalRef = useRef<WebcamModalHandles>(null);
 
   const handleFilePathChange = useCallback(() => {
     window.Main.printSilently();
@@ -18,7 +18,7 @@ export const Home = () => {
     <Container>
       <Button isPrimary value="Print" onClick={handleFilePathChange} />
       <Button isPrimary value="Open Camera Modal" onClick={handleOpenCameraModal} />
-      <WebCamModal ref={modalRef} />
+      <WebcamModal ref={modalRef} />
     </Container>
   )
 };

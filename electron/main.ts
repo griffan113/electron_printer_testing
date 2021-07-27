@@ -23,7 +23,7 @@ function createWindow () {
     minHeight: 600,
     minWidth: 500,
     width: 1100,
-    height: 700,
+    height: 900,
     backgroundColor: '#FFF',
     webPreferences: {
       nodeIntegration: true,
@@ -58,6 +58,10 @@ async function registerListeners () {
       if (printWindow !== null) printWindow.webContents.print({ copies: 1, silent: true });
     })
   });
+
+  /**
+   * Save picture to local path
+   */
 
   ipcMain.on("savePic", (event, imageData: string) => {
     const tmpDir = 'tmp/';
